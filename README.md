@@ -1,17 +1,27 @@
-# flutgpt
+# FlutGPT
 
-A new Flutter project.
+This repository contains the source code for a ChatGPT Android app built using Flutter. The app utilizes OpenAI's GPT-3 language model to generate text based on user inputs. The Flutter framework allows for fast and beautiful UI development, making the app an enjoyable experience for users. Explore the code to learn more about integrating language models with Flutter and building AI-powered apps.
 
-## Getting Started
+| Home                             | Chat                              |
+| --------------------------------- | --------------------------------- |
+| <img src="screenshots/home.png" width="400">  | <img src="screenshots/chat.png" width="400">  |
 
-This project is a starting point for a Flutter application.
+## 💻 Requirements
 
-A few resources to get you started if this is your first Flutter project:
+- Any Operating System (ie. MacOS X, Linux, Windows)
+- Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc)
+- A little knowledge of Dart and Flutter
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📝 Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# acs_ecom
+- [ ] Dark Mode
+- [ ] Multiple Chats
+
+## 🤓 Author(s)
+
+**[Saifudeen Hisham](https://www.instagram.com/beSaif)**
+
+
+## 🔖 LICENCE
+
+[Apache-2.0](https://github.com/JideGuru/FlutterEbookApp/blob/master/LICENSE)
