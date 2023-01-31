@@ -24,4 +24,4 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ## 🔖 LICENCE
 
-[Apache-2.0](https://github.com/JideGuru/FlutterEbookApp/blob/master/LICENSE)
+[GNU General Public License v3.0](/LICENSE.md)
