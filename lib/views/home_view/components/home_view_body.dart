@@ -5,7 +5,6 @@ import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -32,7 +31,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   }
 
   Column customChatInput() {
-    TextEditingController _controller = TextEditingController();
+    TextEditingController controller = TextEditingController();
     return Column(
       children: [
         const Divider(
@@ -57,7 +56,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       onSubmitted: (value) {
                         _handleSendPressed(types.PartialText(text: value));
                       },
-                      controller: _controller,
+                      controller: controller,
                       cursorColor: Colors.white,
                       cursorRadius: const Radius.circular(5),
                       decoration: const InputDecoration(
@@ -69,9 +68,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 const SizedBox(width: 8.0),
                 GestureDetector(
                   onTap: () {
-                    if (_controller.text.isNotEmpty) {
+                    if (controller.text.isNotEmpty) {
                       _handleSendPressed(
-                          types.PartialText(text: _controller.text));
+                          types.PartialText(text: controller.text));
                     }
                   },
                   child: SizedBox(
