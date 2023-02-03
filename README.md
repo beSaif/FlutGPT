@@ -18,6 +18,7 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 - [ ] Dark Mode
 - [ ] Multiple Chats
+- [ ] Store conversation in local storage
 
 ## 🤓 Author(s)
 
