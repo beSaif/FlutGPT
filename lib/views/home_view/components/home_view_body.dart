@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutgpt/config/pallete.dart';
@@ -5,7 +6,6 @@ import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -17,11 +17,32 @@ class HomeViewBody extends StatefulWidget {
 
 class _HomeViewBodyState extends State<HomeViewBody> {
   final List<types.Message> _messages = [];
-  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
+  final _user = const types.User(
+    id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
+  );
+  final chatGPTId = const types.User(
+      id: "chatGPTId",
+      imageUrl:
+          'https://brandlogovector.com/wp-content/uploads/2023/01/ChatGPT-Icon-Logo-PNG.png');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(
+      const Duration(seconds: 5),
+      () {
+        addChatGPTMessage("Hi, I'm ChatGPT. How can I help you?");
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Chat(
       theme: defaultChatTheme(),
+      showUserAvatars: true,
+      showUserNames: true,
       inputOptions: inputOptions(),
       customBottomWidget: customChatInput(),
       messages: _messages,
@@ -32,7 +53,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   }
 
   Column customChatInput() {
-    TextEditingController _controller = TextEditingController();
+    TextEditingController controller = TextEditingController();
     return Column(
       children: [
         const Divider(
@@ -57,7 +78,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       onSubmitted: (value) {
                         _handleSendPressed(types.PartialText(text: value));
                       },
-                      controller: _controller,
+                      controller: controller,
                       cursorColor: Colors.white,
                       cursorRadius: const Radius.circular(5),
                       decoration: const InputDecoration(
@@ -69,9 +90,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 const SizedBox(width: 8.0),
                 GestureDetector(
                   onTap: () {
-                    if (_controller.text.isNotEmpty) {
+                    if (controller.text.isNotEmpty) {
                       _handleSendPressed(
-                          types.PartialText(text: _controller.text));
+                          types.PartialText(text: controller.text));
                     }
                   },
                   child: SizedBox(
@@ -135,6 +156,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   DefaultChatTheme defaultChatTheme() {
     return DefaultChatTheme(
+      userAvatarImageBackgroundColor: Colors.white,
       backgroundColor: primaryColor,
       inputBackgroundColor: activeColor,
       sendButtonIcon: Image.asset('assets/send.png'),
@@ -154,6 +176,16 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       id: randomString(),
       text: message.text,
     );
+
+    _addMessage(textMessage);
+  }
+
+  void addChatGPTMessage(String message) {
+    final textMessage = types.TextMessage(
+        author: chatGPTId,
+        text: message,
+        id: randomString(),
+        createdAt: DateTime.now().millisecondsSinceEpoch);
 
     _addMessage(textMessage);
   }
