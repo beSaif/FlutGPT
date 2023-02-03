@@ -1,4 +1,5 @@
 import 'package:flutgpt/config/pallete.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Drawer appDrawer() {
@@ -34,7 +35,8 @@ Drawer appDrawer() {
           ),
           Column(
             children: [
-              Divider(
+              Container(
+                height: 1,
                 color: activeColor,
               ),
               const ListTile(
@@ -65,7 +67,7 @@ Drawer appDrawer() {
                 leading: Icon(
                   Icons.logout_outlined,
                 ),
-                title: Text('Light Mode'),
+                title: Text('Log out'),
               ),
             ],
           )
