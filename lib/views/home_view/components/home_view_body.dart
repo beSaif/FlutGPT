@@ -1,11 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutgpt/config/pallete.dart';
+import 'package:flutgpt/controller/chat_controller.dart';
 import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -16,40 +15,23 @@ class HomeViewBody extends StatefulWidget {
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
-  final List<types.Message> _messages = [];
-  final _user = const types.User(
-    id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
-  );
-  final chatGPTId = const types.User(
-      id: "chatGPTId",
-      imageUrl:
-          'https://brandlogovector.com/wp-content/uploads/2023/01/ChatGPT-Icon-Logo-PNG.png');
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Timer(
-      const Duration(seconds: 5),
-      () {
-        addChatGPTMessage("Hi, I'm ChatGPT. How can I help you?");
-      },
-    );
-  }
+  ChatController chatController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
-    return Chat(
-      theme: defaultChatTheme(),
-      showUserAvatars: true,
-      showUserNames: true,
-      inputOptions: inputOptions(),
-      customBottomWidget: customChatInput(),
-      messages: _messages,
-      emptyState: const EmptyState(),
-      onSendPressed: _handleSendPressed,
-      user: _user,
-    );
+    return GetBuilder<ChatController>(builder: (context) {
+      return Chat(
+        theme: defaultChatTheme(),
+        showUserAvatars: true,
+        showUserNames: true,
+        inputOptions: inputOptions(),
+        customBottomWidget: customChatInput(),
+        messages: chatController.messages,
+        emptyState: const EmptyState(),
+        onSendPressed: _handleSendPressed,
+        user: chatController.user,
+      );
+    });
   }
 
   Column customChatInput() {
@@ -163,37 +145,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     );
   }
 
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
-
   void _handleSendPressed(types.PartialText message) {
-    final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: randomString(),
-      text: message.text,
-    );
-
-    _addMessage(textMessage);
+    chatController.handleSendPressed(message);
   }
-
-  void addChatGPTMessage(String message) {
-    final textMessage = types.TextMessage(
-        author: chatGPTId,
-        text: message,
-        id: randomString(),
-        createdAt: DateTime.now().millisecondsSinceEpoch);
-
-    _addMessage(textMessage);
-  }
-}
-
-// For the testing purposes, you should probably use https://pub.dev/packages/uuid.
-String randomString() {
-  final random = Random.secure();
-  final values = List<int>.generate(16, (i) => random.nextInt(255));
-  return base64UrlEncode(values);
 }
