@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutgpt/config/pallete.dart';
@@ -16,11 +17,32 @@ class HomeViewBody extends StatefulWidget {
 
 class _HomeViewBodyState extends State<HomeViewBody> {
   final List<types.Message> _messages = [];
-  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
+  final _user = const types.User(
+    id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
+  );
+  final chatGPTId = const types.User(
+      id: "chatGPTId",
+      imageUrl:
+          'https://brandlogovector.com/wp-content/uploads/2023/01/ChatGPT-Icon-Logo-PNG.png');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(
+      const Duration(seconds: 5),
+      () {
+        addChatGPTMessage("Hi, I'm ChatGPT. How can I help you?");
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Chat(
       theme: defaultChatTheme(),
+      showUserAvatars: true,
+      showUserNames: true,
       inputOptions: inputOptions(),
       customBottomWidget: customChatInput(),
       messages: _messages,
@@ -134,6 +156,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   DefaultChatTheme defaultChatTheme() {
     return DefaultChatTheme(
+      userAvatarImageBackgroundColor: Colors.white,
       backgroundColor: primaryColor,
       inputBackgroundColor: activeColor,
       sendButtonIcon: Image.asset('assets/send.png'),
@@ -153,6 +176,16 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       id: randomString(),
       text: message.text,
     );
+
+    _addMessage(textMessage);
+  }
+
+  void addChatGPTMessage(String message) {
+    final textMessage = types.TextMessage(
+        author: chatGPTId,
+        text: message,
+        id: randomString(),
+        createdAt: DateTime.now().millisecondsSinceEpoch);
 
     _addMessage(textMessage);
   }
