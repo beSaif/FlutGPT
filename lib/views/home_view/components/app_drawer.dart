@@ -1,8 +1,10 @@
 import 'package:flutgpt/config/pallete.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutgpt/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Drawer appDrawer() {
+  ChatController chatController = Get.put(ChatController());
   return Drawer(
     backgroundColor: const Color(0xff202123),
     child: Padding(
@@ -19,18 +21,27 @@ Drawer appDrawer() {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: activeColor),
                   ),
-                  child: const ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('New Chat'),
+                  child: ListTile(
+                    leading: const Icon(Icons.add),
+                    title: GetBuilder<ChatController>(builder: (context) {
+                      print("prompt: ${chatController.prompt}");
+                      if (chatController.summary.isNotEmpty) {
+                        return Text(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            chatController.summary);
+                      }
+                      return const Text('New Chat');
+                    }),
                   ),
                 ),
               ),
-              const ListTile(
-                leading: Icon(
-                  Icons.message_outlined,
-                ),
-                title: Text('New Chat'),
-              ),
+              // const ListTile(
+              //   leading: Icon(
+              //     Icons.message_outlined,
+              //   ),
+              //   title: Text('New Chat'),
+              // ),
             ],
           ),
           Column(
@@ -39,11 +50,12 @@ Drawer appDrawer() {
                 height: 1,
                 color: activeColor,
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                onTap: () => chatController.clearConversation(),
+                leading: const Icon(
                   Icons.delete_outline,
                 ),
-                title: Text('Clear Conversation'),
+                title: const Text('Clear Conversation'),
               ),
               const ListTile(
                 leading: Icon(
