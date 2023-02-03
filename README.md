@@ -16,9 +16,14 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ## 📝 Features
 
+### Pending
 - [ ] Dark Mode
 - [ ] Multiple Chats
 - [ ] Store conversation in local storage
+
+### Completed
+- [X] Summarizing prompts and storing it as title
+- [X] Clear conversation
 
 ## 🤓 Author(s)
 
