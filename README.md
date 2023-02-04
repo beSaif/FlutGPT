@@ -23,22 +23,22 @@ This repository contains the source code for a ChatGPT Android app built using F
 3. ```
    const token = "YOUR_API_KEY_HERE";
    ```
-
+   
 4. Execute "flutter run" from root folder.
 
 ## 📝 Features
 
 ### Pending
 
-- [ ] Dark Mode
-- [ ] Multiple Chats
-- [ ] Store conversation in local storage
-- [ ] Add typing bubbles to the chat
+- [ ] Light Mode.
+- [ ] Multiple Chats.
+- [ ] Store conversation in local storage.
+- [ ] Add "typing bubbles" to the chat
 
 ### Completed
 
-- [x] Summarizing prompts and storing it as title
-- [x] Clear conversation
+- [x] Summarizing prompts and storing it as title.
+- [x] Clear conversation.
 
 ## 🤓 Author(s)
 
