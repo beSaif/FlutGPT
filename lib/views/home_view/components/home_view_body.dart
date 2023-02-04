@@ -115,18 +115,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         const SizedBox(
           height: 10,
         ),
-        // Padding(
-        //   padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-        //   child: Text(
-        //     "FlutGPT is not endorsed by OpenAI or ChatGPT in any way. Our use of the API is governed by the OpenAI Terms of Service and Privacy Policy. We are not responsible for any misuse of the API.",
-        //     textAlign: TextAlign.center,
-        //     style: GoogleFonts.roboto(
-        //       color: Colors.white70,
-        //       fontSize: 12,
-        //       fontWeight: FontWeight.w400,
-        //     ),
-        //   ),
-        // )
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Text(
+            "FlutGPT is not endorsed by OpenAI or ChatGPT in any way. Our use of the API is governed by the OpenAI Terms of Service and Privacy Policy. We are not responsible for any misuse of the API.",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(
+              color: Colors.white70,
+              fontSize: 8,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        )
       ],
     );
   }

@@ -23,16 +23,13 @@ Drawer appDrawer() {
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.add),
-                    title: GetBuilder<ChatController>(builder: (context) {
-                      print("prompt: ${chatController.prompt}");
-                      if (chatController.summary.isNotEmpty) {
-                        return Text(
+                    title: GetBuilder<ChatController>(
+                        builder: (context) => Text(
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            chatController.summary);
-                      }
-                      return const Text('New Chat');
-                    }),
+                            chatController.summary.isNotEmpty
+                                ? chatController.summary
+                                : 'New Chat')),
                   ),
                 ),
               ),
