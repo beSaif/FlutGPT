@@ -1,8 +1,11 @@
 import 'package:flutgpt/config/pallete.dart';
+import 'package:flutgpt/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 AppBar appBar() {
+  ChatController chatController = Get.put(ChatController());
   return AppBar(
     backgroundColor: primaryColor,
     bottom: PreferredSize(
@@ -13,20 +16,17 @@ AppBar appBar() {
       ),
     ),
     elevation: 0,
-    // leading: GestureDetector(
-    //   onTap: () {},
-    //   child: const Icon(
-    //     Icons.menu,
-    //     size: 25,
-    //     color: Colors.white,
-    //   ),
-    // ),
-    title: Text(
-      'New Chat',
-      style: GoogleFonts.roboto(
-        fontSize: 18,
-        fontWeight: FontWeight.w300,
-      ),
+    title: GetBuilder<ChatController>(
+      builder: (context) => Text(
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          chatController.summary.isNotEmpty
+              ? chatController.summary
+              : 'New Chat',
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+          )),
     ),
     centerTitle: true,
     titleSpacing: 0,

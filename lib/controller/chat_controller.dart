@@ -123,7 +123,7 @@ class ChatController extends GetxController {
         data["choices"][0]["text"] =
             data["choices"][0]["text"].toString().trim();
         updateSummary(data["choices"][0]["text"]);
-        print("summary: $summary");
+        debugPrint("summary: $summary");
       } else {
         debugPrint(response.statusCode.toString());
       }
