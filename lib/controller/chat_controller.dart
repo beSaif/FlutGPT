@@ -136,7 +136,7 @@ class ChatController extends GetxController {
     };
     var body = jsonEncode({
       "model": "text-davinci-003",
-      "prompt": "${chats[chatIndex].prompt}\nMake it a title",
+      "prompt": "${chats[promptIndex].prompt}\nMake it a title",
       "temperature": 0,
       "max_tokens": 150
     });
@@ -148,7 +148,7 @@ class ChatController extends GetxController {
         data["choices"][0]["text"] =
             data["choices"][0]["text"].toString().trim();
         updateSummary(data["choices"][0]["text"]);
-        debugPrint("summary: ${chats[chatIndex].summary}");
+        debugPrint("summary: ${chats[promptIndex].summary}");
       } else {
         debugPrint(response.statusCode.toString());
       }
@@ -158,12 +158,12 @@ class ChatController extends GetxController {
   }
 
   void updateSummary(String newSummary) {
-    _chats[chatIndex].summary = newSummary;
+    _chats[promptIndex].summary = newSummary;
     update();
   }
 
   addChat() {
-    if (chats.isNotEmpty && chats[chats.length - 1].summary!.isNotEmpty) {
+    if (chats.isNotEmpty && chats[chats.length - 1].prompt!.isNotEmpty) {
       _chats.add(ConversationModel(
           isSummarized: false, summary: "", prompt: "", messages: []));
       _chatIndex = _chats.length - 1;
