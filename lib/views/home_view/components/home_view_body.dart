@@ -1,4 +1,5 @@
 import 'package:flutgpt/controller/chat_controller.dart';
+import 'package:flutgpt/controller/user_controller.dart';
 import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -25,10 +26,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         showUserNames: true,
         inputOptions: inputOptions(),
         customBottomWidget: customChatInput(),
-        messages: chatController.messages,
+        messages: chatController.chats[chatController.chatIndex].messages,
         emptyState: const EmptyState(),
         onSendPressed: _handleSendPressed,
-        user: chatController.user,
+        user: UserController.user,
       );
     });
   }
@@ -105,14 +106,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             Text(
               "Powered by ",
               style: GoogleFonts.roboto(
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 12,
               ),
             ),
             Text(
               "codeSaif",
               style: GoogleFonts.roboto(
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -127,7 +128,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           child: Text(
             "FlutGPT is not endorsed by OpenAI or ChatGPT in any way. Our use of the API is governed by the OpenAI Terms of Service and Privacy Policy. We are not responsible for any misuse of the API.",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         )
       ],

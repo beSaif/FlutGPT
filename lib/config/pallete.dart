@@ -14,19 +14,19 @@ final lightThemeData = ThemeData(
   iconTheme: IconThemeData(color: primaryColor),
   shadowColor: Colors.grey.withOpacity(0.5),
   textTheme: TextTheme(
-      headline1: GoogleFonts.roboto(
+      displayLarge: GoogleFonts.roboto(
           fontSize: 30,
           fontWeight: FontWeight.w800,
           color: const Color(0xff343541)),
-      headline3: GoogleFonts.roboto(
+      displaySmall: GoogleFonts.roboto(
         fontSize: 18,
         color: const Color(0xff343541),
       ),
-      bodyText1: GoogleFonts.roboto(
+      bodyLarge: GoogleFonts.roboto(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: const Color(0xff343541)),
-      bodyText2: GoogleFonts.roboto(
+      bodyMedium: GoogleFonts.roboto(
         color: const Color(0xff343541),
         fontSize: 10,
         fontWeight: FontWeight.w400,
@@ -44,15 +44,15 @@ final darkThemeData = ThemeData(
   iconTheme: const IconThemeData(color: Colors.white),
   shadowColor: Colors.black54.withOpacity(0.3),
   textTheme: TextTheme(
-      headline1: GoogleFonts.roboto(
+      displayLarge: GoogleFonts.roboto(
           fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
-      headline3: GoogleFonts.roboto(
+      displaySmall: GoogleFonts.roboto(
         fontSize: 18,
         color: Colors.white,
       ),
-      bodyText1: GoogleFonts.roboto(
+      bodyLarge: GoogleFonts.roboto(
           fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white),
-      bodyText2: GoogleFonts.roboto(
+      bodyMedium: GoogleFonts.roboto(
         color: Colors.white54,
         fontSize: 10,
         fontWeight: FontWeight.w400,

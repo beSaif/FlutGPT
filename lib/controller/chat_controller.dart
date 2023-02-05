@@ -1,29 +1,30 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutgpt/api/api_key.dart';
+import 'package:flutgpt/controller/user_controller.dart';
+import 'package:flutgpt/model/conversation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ChatController extends GetxController {
-  String prompt = "";
-  final List<types.Message> _messages = [];
-  bool isSummarized = false;
-  String _summary = "";
-  String get summary => _summary;
-  List<types.Message> get messages => _messages;
+  int _chatIndex = 0;
+  int get chatIndex => _chatIndex;
 
-  final _user = const types.User(
-    id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
-  );
-  types.User get user => _user;
+  final List<ConversationModel> _chats = [];
+  List<ConversationModel> get chats => _chats;
 
-  final _chatGPTId = const types.User(
-      id: "chatGPTId",
-      imageUrl:
-          'https://github.com/beSaif/FlutGPT/blob/develop/assets/chatgpt_logo.png?raw=true');
-  types.User get chatGPTId => _chatGPTId;
+  final ConversationModel _conversation = ConversationModel(
+      isSummarized: false, summary: "", prompt: "", messages: []);
+  ConversationModel get conversation => _conversation;
+
+  @override
+  void onInit() {
+    super.onInit();
+    debugPrint("ChatController oninit");
+    _chats.add(_conversation);
+  }
 
   Future postRequestToChatGPT() async {
     final url = Uri.parse("https://api.openai.com/v1/completions");
@@ -34,7 +35,7 @@ class ChatController extends GetxController {
     };
     var body = jsonEncode({
       "model": "text-davinci-003",
-      "prompt": prompt,
+      "prompt": chats[chatIndex].prompt,
       "temperature": 0,
       "max_tokens": 500
     });
@@ -57,7 +58,7 @@ class ChatController extends GetxController {
 
   void handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
-      author: _user,
+      author: UserController.user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: randomString(),
       text: message.text,
@@ -69,35 +70,33 @@ class ChatController extends GetxController {
   }
 
   void _addMessage(types.Message message) {
-    _messages.insert(0, message);
+    _chats[chatIndex].messages.insert(0, message);
     update();
   }
 
   void addChatGPTMessage(String message) {
     final textMessage = types.TextMessage(
-        author: chatGPTId,
+        author: UserController.chatGPTId,
         text: message,
         id: randomString(),
         createdAt: DateTime.now().millisecondsSinceEpoch);
 
     addToPrompt(textMessage.text);
     _addMessage(textMessage);
-    if (!isSummarized) {
+    if (!chats[chatIndex].isSummarized!) {
       summarizeThePrompt();
-      isSummarized = true;
+      chats[chatIndex].isSummarized = true;
+      //  isSummarized = true;
     }
   }
 
   void addToPrompt(String message) {
-    prompt = "$prompt$message\n";
-    debugPrint("prompt: $prompt");
+    chats[chatIndex].prompt = "${chats[chatIndex].prompt}$message\n";
+    debugPrint("prompt: ${chats[chatIndex].prompt}");
   }
 
   void clearConversation() {
-    prompt = "";
-    _messages.clear();
-    isSummarized = false;
-    _summary = "";
+    chats[chatIndex].clearConversation();
     debugPrint("Conversation Cleared");
     update();
   }
@@ -111,7 +110,7 @@ class ChatController extends GetxController {
     };
     var body = jsonEncode({
       "model": "text-davinci-003",
-      "prompt": "$prompt\nMake it a title",
+      "prompt": "${chats[chatIndex].prompt}\nMake it a title",
       "temperature": 0,
       "max_tokens": 150
     });
@@ -123,7 +122,7 @@ class ChatController extends GetxController {
         data["choices"][0]["text"] =
             data["choices"][0]["text"].toString().trim();
         updateSummary(data["choices"][0]["text"]);
-        debugPrint("summary: $summary");
+        debugPrint("summary: ${chats[chatIndex].summary}");
       } else {
         debugPrint(response.statusCode.toString());
       }
@@ -133,7 +132,19 @@ class ChatController extends GetxController {
   }
 
   void updateSummary(String newSummary) {
-    _summary = newSummary;
+    _chats[chatIndex].summary = newSummary;
+    update();
+  }
+
+  addChat() {
+    _chats.add(ConversationModel(
+        isSummarized: false, summary: "", prompt: "", messages: []));
+    _chatIndex = _chats.length - 1;
+    update();
+  }
+
+  void changeConversation(int index) {
+    _chatIndex = index;
     update();
   }
 }

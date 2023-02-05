@@ -20,7 +20,7 @@ class IntroCards extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(card.title, style: Theme.of(context).textTheme.headline3),
+            Text(card.title, style: Theme.of(context).textTheme.displaySmall),
           ],
         ),
         const SizedBox(
@@ -47,7 +47,7 @@ class IntroCards extends StatelessWidget {
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyLarge),
                     ),
                   ),
                 ),
