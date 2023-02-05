@@ -1,4 +1,3 @@
-import 'package:flutgpt/config/pallete.dart';
 import 'package:flutgpt/controller/chat_controller.dart';
 import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,15 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: activeColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).shadowColor,
+                  spreadRadius: 0.5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 2), // changes position of shadow
+                ),
+              ],
+              color: Theme.of(context).inputDecorationTheme.fillColor,
               borderRadius: BorderRadius.circular(5.0),
             ),
             padding:
@@ -98,14 +105,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             Text(
               "Powered by ",
               style: GoogleFonts.roboto(
-                color: Colors.white70,
+                color: Theme.of(context).textTheme.bodyText1!.color,
                 fontSize: 12,
               ),
             ),
             Text(
               "codeSaif",
               style: GoogleFonts.roboto(
-                color: Colors.white,
+                color: Theme.of(context).textTheme.bodyText1!.color,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -120,11 +127,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           child: Text(
             "FlutGPT is not endorsed by OpenAI or ChatGPT in any way. Our use of the API is governed by the OpenAI Terms of Service and Privacy Policy. We are not responsible for any misuse of the API.",
             textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-              color: Colors.white70,
-              fontSize: 8,
-              fontWeight: FontWeight.w400,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         )
       ],
@@ -139,8 +142,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   DefaultChatTheme defaultChatTheme() {
     return DefaultChatTheme(
       userAvatarImageBackgroundColor: Colors.white,
-      backgroundColor: primaryColor,
-      inputBackgroundColor: activeColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //  inputBackgroundColor: Colors.red,
       sendButtonIcon: Image.asset('assets/send.png'),
     );
   }

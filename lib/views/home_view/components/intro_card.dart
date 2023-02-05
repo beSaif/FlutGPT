@@ -1,7 +1,5 @@
-import 'package:flutgpt/config/pallete.dart';
 import 'package:flutgpt/model/empty_state_card_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class IntroCards extends StatelessWidget {
   final EmptyStateCardModel card;
@@ -22,10 +20,7 @@ class IntroCards extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(card.title,
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                )),
+            Text(card.title, style: Theme.of(context).textTheme.headline3),
           ],
         ),
         const SizedBox(
@@ -42,7 +37,7 @@ class IntroCards extends StatelessWidget {
                   height: 60,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: activeColor,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -52,11 +47,7 @@ class IntroCards extends StatelessWidget {
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.roboto(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          )),
+                          style: Theme.of(context).textTheme.bodyText1),
                     ),
                   ),
                 ),
