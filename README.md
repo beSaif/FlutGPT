@@ -22,7 +22,7 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 1. Clone the repo.
 
-2. Create a file called api_key.dart
+2. Create a file called api_key.dart in lib/api/
 
 3. ```
    const token = "YOUR_API_KEY_HERE";
