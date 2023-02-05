@@ -32,7 +32,9 @@ AppBar appBar() {
     titleSpacing: 0,
     actions: [
       GestureDetector(
-        onTap: () {},
+        onTap: () {
+          chatController.addChat();
+        },
         child: const Icon(
           Icons.add,
           size: 25,

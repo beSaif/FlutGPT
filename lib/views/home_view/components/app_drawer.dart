@@ -67,13 +67,7 @@ Drawer appDrawer() {
                           chatController.chats.length == 1,
                       child: GestureDetector(
                         onTap: () {
-                          if (chatController.chats.isNotEmpty &&
-                              chatController
-                                  .chats[chatController.chats.length - 1]
-                                  .summary!
-                                  .isNotEmpty) {
-                            chatController.addChat();
-                          }
+                          chatController.addChat();
                         },
                         child: Container(
                           decoration: BoxDecoration(
