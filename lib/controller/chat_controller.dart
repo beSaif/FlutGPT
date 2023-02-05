@@ -10,7 +10,19 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ChatController extends GetxController {
   int _chatIndex = 0;
+
+  // Adds a message to the current chat even if it's not the active one
+  int promptIndex = 0;
+
   int get chatIndex => _chatIndex;
+  late String chatId;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    update();
+  }
 
   final List<ConversationModel> _chats = [];
   List<ConversationModel> get chats => _chats;
@@ -54,9 +66,14 @@ class ChatController extends GetxController {
     } catch (e) {
       debugPrint(e.toString());
     }
+
+    setLoading(false);
   }
 
   void handleSendPressed(types.PartialText message) {
+    promptIndex = chatIndex;
+    setLoading(true);
+
     final textMessage = types.TextMessage(
       author: UserController.user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -70,7 +87,7 @@ class ChatController extends GetxController {
   }
 
   void _addMessage(types.Message message) {
-    _chats[chatIndex].messages.insert(0, message);
+    _chats[promptIndex].messages.insert(0, message);
     update();
   }
 
@@ -83,20 +100,29 @@ class ChatController extends GetxController {
 
     addToPrompt(textMessage.text);
     _addMessage(textMessage);
-    if (!chats[chatIndex].isSummarized!) {
+    if (!chats[promptIndex].isSummarized!) {
       summarizeThePrompt();
-      chats[chatIndex].isSummarized = true;
-      //  isSummarized = true;
+      chats[promptIndex].isSummarized = true;
     }
   }
 
   void addToPrompt(String message) {
-    chats[chatIndex].prompt = "${chats[chatIndex].prompt}$message\n";
-    debugPrint("prompt: ${chats[chatIndex].prompt}");
+    chats[promptIndex].prompt = "${chats[promptIndex].prompt}$message\n";
+    debugPrint("prompt: ${chats[promptIndex].prompt}");
   }
 
   void clearConversation() {
-    chats[chatIndex].clearConversation();
+    if (_chats.length <= 1) {
+      _chats[0].clearConversation();
+    } else {
+      _chats.removeAt(chatIndex);
+      if (chatIndex > 1) {
+        changeConversation(chatIndex - 1);
+      } else {
+        changeConversation(0);
+      }
+    }
+
     debugPrint("Conversation Cleared");
     update();
   }
@@ -137,10 +163,12 @@ class ChatController extends GetxController {
   }
 
   addChat() {
-    _chats.add(ConversationModel(
-        isSummarized: false, summary: "", prompt: "", messages: []));
-    _chatIndex = _chats.length - 1;
-    update();
+    if (chats.isNotEmpty && chats[chats.length - 1].summary!.isNotEmpty) {
+      _chats.add(ConversationModel(
+          isSummarized: false, summary: "", prompt: "", messages: []));
+      _chatIndex = _chats.length - 1;
+      update();
+    }
   }
 
   void changeConversation(int index) {

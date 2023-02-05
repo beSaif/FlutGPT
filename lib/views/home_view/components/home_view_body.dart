@@ -65,6 +65,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 Expanded(
                   child: Center(
                     child: TextField(
+                      enabled: !chatController.isLoading,
                       onSubmitted: (value) {
                         _handleSendPressed(types.PartialText(text: value));
                       },
