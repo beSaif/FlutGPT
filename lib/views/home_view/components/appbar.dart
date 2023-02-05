@@ -20,8 +20,8 @@ AppBar appBar() {
       builder: (context) => Text(
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
-          chatController.summary.isNotEmpty
-              ? chatController.summary
+          chatController.chats[chatController.chatIndex].summary!.isNotEmpty
+              ? chatController.chats[chatController.chatIndex].summary!
               : 'New Chat',
           style: GoogleFonts.roboto(
             fontSize: 18,

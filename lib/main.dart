@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetX<ThemeController>(
         init: themeController,
         builder: (context) {
-          return MaterialApp(
+          return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightThemeData,
             darkTheme: darkThemeData,
