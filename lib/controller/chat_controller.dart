@@ -22,7 +22,7 @@ class ChatController extends GetxController {
   final _chatGPTId = const types.User(
       id: "chatGPTId",
       imageUrl:
-          'https://github.com/beSaif/FlutGPT/blob/main/assets/chatgpt_logo.png?raw=true');
+          'https://github.com/beSaif/FlutGPT/blob/develop/assets/chatgpt_logo.png?raw=true');
   types.User get chatGPTId => _chatGPTId;
 
   Future postRequestToChatGPT() async {

@@ -4,9 +4,9 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ## 📸 Preview
 
-| Demo                              |
-|:---------------------------------:|
-| ![Alt Text](screenshots/demo.gif) |
+| Demo                          | Light/Dark Modes                                                             |
+|:-----------------------------:|:----------------------------------------------------------------------------:|
+| ![Demo](screenshots/demo.gif) | <img src="screenshots/thememode.gif" title="" alt="Theme Modes" width="750"> |
 
 ## 💻 Requirements
 
@@ -23,7 +23,7 @@ This repository contains the source code for a ChatGPT Android app built using F
 3. ```
    const token = "YOUR_API_KEY_HERE";
    ```
-   
+
 4. Execute "flutter run" from root folder.
 
 ## 📝 Features

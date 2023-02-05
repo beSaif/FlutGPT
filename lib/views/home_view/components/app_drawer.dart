@@ -1,9 +1,15 @@
 import 'package:flutgpt/config/pallete.dart';
 import 'package:flutgpt/controller/chat_controller.dart';
+import 'package:flutgpt/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Drawer appDrawer() {
+  ThemeController themeController = Get.put(ThemeController());
+  TextStyle fixedStyle = GoogleFonts.roboto(
+    color: Colors.white,
+  );
   ChatController chatController = Get.put(ChatController());
   return Drawer(
     backgroundColor: const Color(0xff202123),
@@ -22,14 +28,19 @@ Drawer appDrawer() {
                     border: Border.all(color: activeColor),
                   ),
                   child: ListTile(
-                    leading: const Icon(Icons.add),
+                    leading: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                     title: GetBuilder<ChatController>(
                         builder: (context) => Text(
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            chatController.summary.isNotEmpty
-                                ? chatController.summary
-                                : 'New Chat')),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              chatController.summary.isNotEmpty
+                                  ? chatController.summary
+                                  : 'New Chat',
+                              style: fixedStyle,
+                            )),
                   ),
                 ),
               ),
@@ -51,32 +62,49 @@ Drawer appDrawer() {
                 onTap: () => chatController.clearConversation(),
                 leading: const Icon(
                   Icons.delete_outline,
+                  color: Colors.white,
                 ),
-                title: const Text('Clear Conversation'),
+                title: Text('Clear Conversation', style: fixedStyle),
               ),
-              const ListTile(
-                leading: Icon(
-                  Icons.wb_sunny_outlined,
-                ),
-                title: Text('Light Mode'),
+              Obx(
+                () {
+                  return ListTile(
+                    onTap: () => themeController.changeThemeMode(),
+                    leading: Icon(
+                      themeController.isDarkMode.value
+                          ? Icons.wb_sunny_outlined
+                          : Icons.nightlight_outlined,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      themeController.isDarkMode.value
+                          ? 'Light Mode'
+                          : 'Dark Mode',
+                      style: fixedStyle,
+                    ),
+                  );
+                },
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                leading: const Icon(
                   Icons.discord,
+                  color: Colors.white,
                 ),
-                title: Text('OpenAI Discord'),
+                title: Text('OpenAI Discord', style: fixedStyle),
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                leading: const Icon(
                   Icons.open_in_new,
+                  color: Colors.white,
                 ),
-                title: Text('Updates and FAQ'),
+                title: Text('Updates and FAQ', style: fixedStyle),
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                leading: const Icon(
                   Icons.logout_outlined,
+                  color: Colors.white,
                 ),
-                title: Text('Log out'),
+                title: Text('Log out', style: fixedStyle),
               ),
             ],
           )

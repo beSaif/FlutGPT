@@ -1,7 +1,6 @@
 import 'package:flutgpt/model/empty_state_card_model.dart';
 import 'package:flutgpt/views/home_view/components/intro_card.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class EmptyState extends StatefulWidget {
   const EmptyState({
@@ -30,12 +29,7 @@ class _EmptyStateState extends State<EmptyState> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Text("FlutGPT",
-                style: GoogleFonts.roboto(
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1,
-                  fontSize: 30,
-                )),
+            Text("FlutGPT", style: Theme.of(context).textTheme.headline1),
             const SizedBox(
               height: 30,
             ),
