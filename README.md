@@ -4,11 +4,13 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ## 📸 Preview
 
+<div align ="center">
 
 | Demo                          | Light/Dark Modes                                                             | Multiple Chats |
 |:-----------------------------:|:----------------------------------------------------------------------------:|:-----------------------------:|
-| <img src="screenshots/demo.gif" title="" alt="Theme Modes" width="350"> | <img src="screenshots/thememode.gif" title="" alt="Theme Modes" width="350"> | <img src="screenshots/multiple-chats.gif" title="" alt="Multiple Chats" width="350"> |
+| <img src="screenshots/demo.gif" title="" alt="Theme Modes" width="280"> | <img src="screenshots/thememode.gif" title="" alt="Theme Modes" width="280"> | <img src="screenshots/multiple-chats.gif" title="" alt="Multiple Chats" width="280"> |
 
+</div>
 
 ## 💻 Requirements
 
