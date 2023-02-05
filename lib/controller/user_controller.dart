@@ -7,7 +7,7 @@ class UserController {
   static types.User get user => _user;
 
   static const _chatGPTId = types.User(
-      id: "chatGPTId",
+      id: "chatGPT",
       imageUrl:
           'https://github.com/beSaif/FlutGPT/blob/develop/assets/chatgpt_logo.png?raw=true');
   static types.User get chatGPTId => _chatGPTId;

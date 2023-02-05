@@ -1,8 +1,7 @@
 import 'package:flutgpt/controller/chat_controller.dart';
-import 'package:flutgpt/controller/user_controller.dart';
+import 'package:flutgpt/views/home_view/components/chat_card.dart';
 import 'package:flutgpt/views/home_view/components/empty_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,19 +16,66 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   ChatController chatController = Get.put(ChatController());
 
+  final ScrollController _controller = ScrollController(keepScrollOffset: true);
+
+// This is what you're looking for!
+  void scrollDown() {
+    if (_controller.position.maxScrollExtent > 0) {
+      _controller.animateTo(
+        _controller.position.maxScrollExtent,
+        duration: const Duration(seconds: 2),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChatController>(builder: (context) {
-      return Chat(
-        theme: defaultChatTheme(),
-        showUserAvatars: true,
-        showUserNames: true,
-        inputOptions: inputOptions(),
-        customBottomWidget: customChatInput(),
-        messages: chatController.chats[chatController.chatIndex].messages,
-        emptyState: const EmptyState(),
-        onSendPressed: _handleSendPressed,
-        user: UserController.user,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: chatController
+                    .chats[chatController.chatIndex].messages.isEmpty
+                ? const EmptyState()
+                : SingleChildScrollView(
+                    controller: _controller,
+                    child: Column(
+                      children: [
+                        ListView.builder(
+                            // controller: _controller,
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: chatController
+                                .chats[chatController.chatIndex]
+                                .messages
+                                .length,
+                            itemBuilder: (context, index) {
+                              final message = chatController
+                                  .chats[chatController.chatIndex]
+                                  .messages
+                                  .reversed
+                                  .toList();
+
+                              // To scroll down to the bottom of the list after the list is built
+                              WidgetsBinding.instance
+                                  .addPostFrameCallback((_) => scrollDown());
+
+                              return ChatCard(
+                                messageBlock: message[index],
+                              );
+                            }),
+                        Visibility(
+                          visible: chatController.isLoading,
+                          child: const LoadingCard(),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+          customChatInput()
+        ],
       );
     });
   }
@@ -67,7 +113,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     child: TextField(
                       enabled: !chatController.isLoading,
                       onSubmitted: (value) {
-                        _handleSendPressed(types.PartialText(text: value));
+                        _handleSendPressed(controller.text);
                       },
                       controller: controller,
                       cursorColor: Colors.white,
@@ -82,8 +128,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 GestureDetector(
                   onTap: () {
                     if (controller.text.isNotEmpty) {
-                      _handleSendPressed(
-                          types.PartialText(text: controller.text));
+                      _handleSendPressed(controller.text);
                     }
                   },
                   child: SizedBox(
@@ -150,7 +195,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     );
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(String message) {
     chatController.handleSendPressed(message);
   }
 }
