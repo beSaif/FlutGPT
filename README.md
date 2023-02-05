@@ -34,6 +34,7 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ### Pending
 
+- [ ] Speech Recognition
 - [ ] Multiple Chats.
 - [ ] Store conversation in local storage.
 - [ ] Add "typing bubbles" to the chat
