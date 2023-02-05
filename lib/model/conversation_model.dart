@@ -1,9 +1,9 @@
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutgpt/model/message_model.dart';
 
 class ConversationModel {
   String? id;
   String? prompt;
-  List<types.Message> messages = [];
+  List<MessageModel> messages = [];
   String? summary;
   bool? isSummarized;
 

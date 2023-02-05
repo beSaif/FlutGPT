@@ -18,6 +18,10 @@ final lightThemeData = ThemeData(
           fontSize: 30,
           fontWeight: FontWeight.w800,
           color: const Color(0xff343541)),
+      displayMedium: GoogleFonts.roboto(
+          fontSize: 24,
+          fontWeight: FontWeight.w800,
+          color: const Color(0xff343541)),
       displaySmall: GoogleFonts.roboto(
         fontSize: 18,
         color: const Color(0xff343541),

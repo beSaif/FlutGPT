@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutgpt/api/api_key.dart';
 import 'package:flutgpt/controller/user_controller.dart';
 import 'package:flutgpt/model/conversation_model.dart';
+import 'package:flutgpt/model/message_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ChatController extends GetxController {
   int _chatIndex = 0;
@@ -70,35 +70,35 @@ class ChatController extends GetxController {
     setLoading(false);
   }
 
-  void handleSendPressed(types.PartialText message) {
+  void handleSendPressed(String message) async {
     promptIndex = chatIndex;
     setLoading(true);
 
-    final textMessage = types.TextMessage(
+    final textMessage = MessageModel(
       author: UserController.user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: randomString(),
-      text: message.text,
+      message: message,
     );
 
     _addMessage(textMessage);
-    addToPrompt(textMessage.text);
+    addToPrompt(textMessage.message!);
     postRequestToChatGPT();
   }
 
-  void _addMessage(types.Message message) {
-    _chats[promptIndex].messages.insert(0, message);
+  void _addMessage(MessageModel messageBlock) {
+    _chats[promptIndex].messages.insert(0, messageBlock);
     update();
   }
 
-  void addChatGPTMessage(String message) {
-    final textMessage = types.TextMessage(
+  void addChatGPTMessage(String message) async {
+    final textMessage = MessageModel(
         author: UserController.chatGPTId,
-        text: message,
+        message: message,
         id: randomString(),
         createdAt: DateTime.now().millisecondsSinceEpoch);
 
-    addToPrompt(textMessage.text);
+    addToPrompt(textMessage.message!);
     _addMessage(textMessage);
     if (!chats[promptIndex].isSummarized!) {
       summarizeThePrompt();

@@ -4,13 +4,11 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ## 📸 Preview
 
-<div align="center">
 
-| Demo                          | Light/Dark Modes                                                             |
-|:-----------------------------:|:----------------------------------------------------------------------------:|
-| <img src="screenshots/demo.gif" title="" alt="Theme Modes" width="350"> | <img src="screenshots/thememode.gif" title="" alt="Theme Modes" width="350"> |
+| Demo                          | Light/Dark Modes                                                             | Multiple Chats |
+|:-----------------------------:|:----------------------------------------------------------------------------:|:-----------------------------:|
+| <img src="screenshots/demo.gif" title="" alt="Theme Modes" width="350"> | <img src="screenshots/thememode.gif" title="" alt="Theme Modes" width="350"> | <img src="screenshots/multiple-chats.gif" title="" alt="Multiple Chats" width="350"> |
 
-</div>
 
 ## 💻 Requirements
 
@@ -34,10 +32,9 @@ This repository contains the source code for a ChatGPT Android app built using F
 
 ### Pending
 
+- [ ] Store conversation in local storage. (Priority)
 - [ ] Regenerate response.
 - [ ] Speech Recognition.
-- [ ] Store conversation in local storage.
-- [ ] Add "typing bubbles" to the chat.
 
 ### Completed
 
@@ -45,6 +42,7 @@ This repository contains the source code for a ChatGPT Android app built using F
 - [x] Light Mode.
 - [x] Summarizing prompts and storing it as title.
 - [x] Clear conversation.
+- [x] Add "typing bubbles" to the chat.
 
 ## 🤓 Author(s)
 
