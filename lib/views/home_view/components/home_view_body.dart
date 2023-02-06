@@ -128,8 +128,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       controller: controller,
                       cursorColor: Colors.white,
                       cursorRadius: const Radius.circular(5),
+                      maxLines: 1,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                        isDense: true,
                       ),
                     ),
                   ),
