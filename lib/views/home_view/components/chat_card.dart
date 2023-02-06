@@ -1,6 +1,7 @@
 import 'package:flutgpt/model/message_model.dart';
 import 'package:flutgpt/views/home_view/components/blinking_cursor.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 enum ChatCardType { human, gpt }
 
@@ -75,8 +76,12 @@ class ChatCard extends StatelessWidget {
   }
 }
 
-class LoadingCard extends StatelessWidget {
-  const LoadingCard({super.key});
+enum OtherCardType { loading, error }
+
+class OtherCard extends StatelessWidget {
+  final OtherCardType type;
+  final Response? response;
+  const OtherCard({super.key, required this.type, this.response});
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +113,21 @@ class LoadingCard extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: BlinkingCursor(),
-              ),
+              type == OtherCardType.loading
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: BlinkingCursor(),
+                    )
+                  : Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(response!.body,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: Colors.red,
+                                    )),
+                      ),
+                    ),
             ],
           ),
         ),

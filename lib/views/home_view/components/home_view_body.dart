@@ -68,7 +68,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                             }),
                         Visibility(
                           visible: chatController.isLoading,
-                          child: const LoadingCard(),
+                          child: const OtherCard(type: OtherCardType.loading),
+                        ),
+                        Visibility(
+                          visible: chatController
+                                  .chats[chatController.chatIndex].error !=
+                              null,
+                          child: OtherCard(
+                            type: OtherCardType.error,
+                            response: chatController
+                                .chats[chatController.chatIndex].error,
+                          ),
                         ),
                       ],
                     ),
@@ -118,8 +128,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       controller: controller,
                       cursorColor: Colors.white,
                       cursorRadius: const Radius.circular(5),
+                      maxLines: 1,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                        isDense: true,
                       ),
                     ),
                   ),
