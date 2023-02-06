@@ -1,4 +1,5 @@
 import 'package:flutgpt/model/message_model.dart';
+import 'package:http/http.dart';
 
 class ConversationModel {
   String? id;
@@ -6,6 +7,7 @@ class ConversationModel {
   List<MessageModel> messages = [];
   String? summary;
   bool? isSummarized;
+  Response? error;
 
   ConversationModel({
     this.id,
@@ -13,6 +15,7 @@ class ConversationModel {
     required this.messages,
     this.summary,
     this.isSummarized,
+    this.error,
   });
 
   clearConversation() {

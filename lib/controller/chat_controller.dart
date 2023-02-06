@@ -61,16 +61,20 @@ class ChatController extends GetxController {
             data["choices"][0]["text"].toString().trim();
         addChatGPTMessage(data["choices"][0]["text"]);
       } else {
-        debugPrint(response.statusCode.toString());
+        addErrorMessage(response);
+        debugPrint("Error: ${response.statusCode}");
+        debugPrint("Error: ${response.body}");
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("Catch Error: $e");
     }
 
     setLoading(false);
   }
 
   void handleSendPressed(String message) async {
+    if (message.isEmpty) return;
+    addErrorMessage(null);
     promptIndex = chatIndex;
     setLoading(true);
 
@@ -150,10 +154,11 @@ class ChatController extends GetxController {
         updateSummary(data["choices"][0]["text"]);
         debugPrint("summary: ${chats[promptIndex].summary}");
       } else {
-        debugPrint(response.statusCode.toString());
+        debugPrint("Error: ${response.statusCode}");
+        debugPrint("Error: ${response.body}");
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("Catch Error: $e");
     }
   }
 
@@ -173,6 +178,11 @@ class ChatController extends GetxController {
 
   void changeConversation(int index) {
     _chatIndex = index;
+    update();
+  }
+
+  void addErrorMessage(http.Response? response) {
+    _chats[promptIndex].error = response;
     update();
   }
 }
