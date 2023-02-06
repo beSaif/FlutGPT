@@ -67,7 +67,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                               );
                             }),
                         Visibility(
-                          visible: chatController.isLoading,
+                          visible: chatController.isLoading &&
+                              chatController.chatIndex ==
+                                  chatController.promptIndex,
                           child: const OtherCard(type: OtherCardType.loading),
                         ),
                         Visibility(
